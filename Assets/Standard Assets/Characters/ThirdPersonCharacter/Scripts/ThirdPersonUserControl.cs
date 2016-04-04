@@ -11,10 +11,18 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+		[SerializeField] float mouseSensitivity = 100.0f;
+		[SerializeField] float clampAngle = 80.0f;
+
+		private float rotY = 0.0f; // rotation around the up/y axis
+		private float rotX = 0.0f; // rotation around the right/x axis
 
         
         private void Start()
-        {
+		{		
+			Vector3 rot = transform.localRotation.eulerAngles;
+			rotY = rot.y;
+			rotX = rot.x;
             // get the transform of the main camera
             if (Camera.main != null)
             {
@@ -48,6 +56,20 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			float h = Input.GetAxis("Horizontal");
 			float v = Input.GetAxis("Vertical");
 			bool crouch = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+
+
+			//rotation
+			float mouseX = Input.GetAxis("Mouse X");
+			float mouseY = -Input.GetAxis("Mouse Y");
+
+			rotY += mouseX * mouseSensitivity * Time.deltaTime;
+			rotX += mouseY * mouseSensitivity * Time.deltaTime;
+
+			rotX = Mathf.Clamp(rotX, -clampAngle, clampAngle);
+
+			Quaternion localRotation = Quaternion.Euler(rotX, rotY, 0.0f);
+			transform.rotation = localRotation;
+
 
 
             // calculate move direction to pass to character
