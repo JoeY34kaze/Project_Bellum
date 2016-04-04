@@ -1,5 +1,9 @@
 using System;
 using UnityEngine;
+<<<<<<< HEAD
+=======
+using UnityStandardAssets.CrossPlatformInput;
+>>>>>>> origin/Basic
 
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
@@ -36,7 +40,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             if (!m_Jump)
             {
+<<<<<<< HEAD
                 m_Jump = Input.GetButtonDown("Jump");
+=======
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+>>>>>>> origin/Basic
             }
         }
 
@@ -45,9 +53,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void FixedUpdate()
         {
             // read inputs
+<<<<<<< HEAD
 			float h = Input.GetAxis("Horizontal");
 			float v = Input.GetAxis("Vertical");
 			bool crouch = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+=======
+            float h = CrossPlatformInputManager.GetAxis("Horizontal");
+            float v = CrossPlatformInputManager.GetAxis("Vertical");
+            bool crouch = Input.GetKey(KeyCode.C);
+>>>>>>> origin/Basic
 
             // calculate move direction to pass to character
             if (m_Cam != null)
@@ -62,6 +76,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 m_Move = v*Vector3.forward + h*Vector3.right;
             }
 			// walk speed multiplier
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Basic
 	        if (!Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 
 
