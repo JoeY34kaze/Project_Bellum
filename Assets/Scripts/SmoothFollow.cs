@@ -19,7 +19,9 @@ using UnityEngine.Networking;
 		public float heightDamping;
 
 		// Use this for initialization
-		void Start() { }
+	void OnNetworkInstantiate(NetworkMessageInfo info){//upam da tole poprav kamero. tezava je ker smoothscript zahteva networkidentity (sej nevem če je to treba ampak pomoje je treba)
+		this.gameObject.SetActive(true);
+	}
 
 		// Update is called once per frame
 		void LateUpdate()
