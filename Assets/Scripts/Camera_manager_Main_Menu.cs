@@ -31,6 +31,7 @@ public class Camera_manager_Main_Menu : MonoBehaviour {
 					//nrdit karkol je pac treba za multiplayer
 					//od network managerja treba pokazat HUD tle
 					//GameObject.Find ("Network_manager").SetActive(true);
+					SceneManager.LoadScene("Lobby_scene");
 
 				}
 			} else {
