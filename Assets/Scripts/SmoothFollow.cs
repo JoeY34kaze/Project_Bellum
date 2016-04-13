@@ -16,6 +16,8 @@
 		[SerializeField]
 		public float rotationDamping;
 		[SerializeField]
+		public float angularSpeed;
+		[SerializeField]
 		public float heightDamping;
 
 		// Use this for initialization
@@ -31,7 +33,7 @@
 				return;
 
 			// Calculate the current rotation angles
-			var wantedRotationAngle = target.eulerAngles.y;
+			var wantedRotationAngle = target.eulerAngles.y+Input.GetAxis("Mouse X");
 			var wantedHeight = target.position.y + height;
 
 			var currentRotationAngle = transform.eulerAngles.y;
@@ -45,6 +47,18 @@
 
 			// Convert the angle into a rotation
 			var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+
+
+
+			float movement = Input.GetAxis ("Mouse X") * angularSpeed * Time.deltaTime;
+			//Debug.Log ("mouse movement: "+movement);
+			Debug.Log("current rotation angle:\t "+currentRotationAngle+" wanted rotation angle:\t "+wantedRotationAngle+" current rotation:\t "+currentRotation+" object:"+gameObject.name);
+			//transform.RotateAround (target.position, Vector3.up,movement);
+			//Camera.main.transform.RotateAround(target.position,Vector3.up,wantedRotationAngle);
+			//currentOffset = transform.position - target.position;
+			transform.eulerAngles.Set(transform.eulerAngles.x,transform.eulerAngles.y+movement,transform.eulerAngles.z);//to bi moral delat, ampak sj do zdej bi mogl ze vse delat. update: tut nedela
+
 
 			// Set the position of the camera on the x-z plane to:
 			// distance meters behind the target
