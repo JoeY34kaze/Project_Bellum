@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
-	public class SmoothFollow : NetworkBehaviour
+//using UnityEngine.Networking;
+	public class SmoothFollow : MonoBehaviour
 	{
 
 		// The target we are following
@@ -19,9 +19,9 @@ using UnityEngine.Networking;
 		public float heightDamping;
 
 		// Use this for initialization
-	void OnNetworkInstantiate(NetworkMessageInfo info){//upam da tole poprav kamero. tezava je ker smoothscript zahteva networkidentity (sej nevem če je to treba ampak pomoje je treba)
-		this.gameObject.SetActive(true);
-	}
+//	void OnNetworkInstantiate(NetworkMessageInfo info){//upam da tole poprav kamero. tezava je ker smoothscript zahteva networkidentity (sej nevem če je to treba ampak pomoje je treba)
+//		this.gameObject.SetActive(true);
+//	}
 
 		// Update is called once per frame
 		void LateUpdate()
