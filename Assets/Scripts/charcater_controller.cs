@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class charcater_controller : MonoBehaviour {
+public class charcater_controller : NetworkBehaviour {
 	public float speed = 6.0F;
 	public float jumpSpeed = 8.0F;
 	public float gravity = 20.0F;
@@ -11,6 +12,12 @@ public class charcater_controller : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 	}
 	void Update() {
+		if (!isLocalPlayer) {
+			return;
+		}
+
+
+
 		CharacterController controller = GetComponent<CharacterController>();
 		if (controller.isGrounded) {
 			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
