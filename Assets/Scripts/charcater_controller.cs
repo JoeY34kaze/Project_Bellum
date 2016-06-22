@@ -9,6 +9,7 @@ public class charcater_controller : NetworkBehaviour {
 	public float run=1.5f;
 	public float sprint=1.5f;
 	private float horizontal = 0;
+	private float vertical=0;
 	private Vector3 moveDirection = Vector3.zero;
 	private Animator anim;
 	void Start(){
@@ -23,11 +24,23 @@ public class charcater_controller : NetworkBehaviour {
 
 		CharacterController controller = GetComponent<CharacterController>();
 		if (controller.isGrounded) {
+			if (Input.GetKeyDown (KeyCode.LeftControl)) {
+				bool temp=anim.GetBool ("crouched");
+				anim.SetBool ("crouched", !temp);
+			}
+
 			horizontal = Input.GetAxis ("Horizontal");
-			anim.SetFloat ("horizontal",Input.GetAxis("Horizontal"));
+			vertical=Input.GetAxis ("Vertical");
+			anim.SetFloat ("horizontal",horizontal);
+			anim.SetFloat ("movement_speed",vertical);
+			if (horizontal + vertical != 0) {
+				anim.SetBool ("moving",true);
+			} else {
+				anim.SetBool ("moving",false);
+			}
 			moveDirection = new Vector3(horizontal, 0, Input.GetAxis("Vertical"));
 			moveDirection = transform.TransformDirection(moveDirection);
-			moveDirection *= speed;
+			//moveDirection *= speed;
 
 			anim.SetFloat ("movement_speed",Input.GetAxis ("Vertical"));
 
