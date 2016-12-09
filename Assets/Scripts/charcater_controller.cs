@@ -12,6 +12,8 @@ public class charcater_controller : NetworkBehaviour {
 	private float vertical=0;
 	private Vector3 moveDirection = Vector3.zero;
 	private Animator anim;
+	private Vector3 lookAt;
+	private CharacterController controller;
 	void Start(){
 		anim = GetComponent<Animator> ();
 	}
@@ -19,18 +21,25 @@ public class charcater_controller : NetworkBehaviour {
 		if (!isLocalPlayer) {
 			return;
 		}
+		controller = transform.GetComponent<CharacterController>();
+		horizontal = Input.GetAxis ("Horizontal");
+		vertical=Input.GetAxis ("Vertical");
+
+		// Controling character rotation
+		lookAt = new Vector3( 0, Input.GetAxis( "Mouse X" ), 0 );
+		controller.transform.Rotate(lookAt);
 
 
 
-		CharacterController controller = GetComponent<CharacterController>();
+
+
 		if (controller.isGrounded) {
 			if (Input.GetKeyDown (KeyCode.LeftControl)) {
 				bool temp=anim.GetBool ("crouched");
 				anim.SetBool ("crouched", !temp);
 			}
 
-			horizontal = Input.GetAxis ("Horizontal");
-			vertical=Input.GetAxis ("Vertical");
+
 			anim.SetFloat ("horizontal",horizontal);
 			anim.SetFloat ("movement_speed",vertical);
 			if (horizontal + vertical != 0) {
@@ -67,6 +76,9 @@ public class charcater_controller : NetworkBehaviour {
 
 			if (Input.GetButton("Jump"))
 				moveDirection.y = jumpSpeed;
+
+
+
 
 		}
 		moveDirection.y -= gravity * Time.deltaTime;
